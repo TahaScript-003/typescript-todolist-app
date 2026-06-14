@@ -1,0 +1,65 @@
+  const [newTaskTitle, setNewTaskTitle] = useState(''); // Initial value of the new task title is an empty string
+  const [newTaskDescription, setNewTaskDescription] = useState(''); // Initial value of the new task description is an empty string
+  const [newTaskPriority, setNewTaskPriority] = useState('high'); // Initial value of the new task priority is 'high'
+
+  const [taskslist, setTasklists] = useState<TaskType[]>([]) // Initial value of the tasks list is an empty array of type Task
+
+  // Function to handle adding a new task to the tasks list
+  const handleTasks = () => {
+    // Create a new task object with the current values of the new task title, description, and priority
+    const newTask: TaskType = {
+      title: newTaskTitle,
+      description: newTaskDescription,
+      priority: newTaskPriority
+    }
+
+    // Add the new task to the existing tasks list and save it to local storage
+    localStorage.setItem('tasks', JSON.stringify([...taskslist, newTask]))
+
+    // Retrieve the updated tasks list from local storage and update the state with the new list
+    const tasks: TaskType[] = JSON.parse(localStorage.getItem('tasks') || '[]')
+    setTasklists(tasks) // Update the tasks list state with the new list of tasks
+
+    // Reset the new task input fields to their initial values
+    setNewTaskTitle('')
+    setNewTaskDescription('')
+    setNewTaskPriority('high')
+  }
+
+  // useEffect hook to load the tasks list from local storage when the component mounts
+  useEffect(() => {
+    const tasks: Task[] = JSON.parse(localStorage.getItem('tasks') || '[]')
+    setTasklists(tasks)
+  }, []);
+
+
+
+
+
+*********************************************************
+// const sum = (a: number, b: number): number => {
+    //   return a + b
+    // }
+
+    // const user1: User = {
+    //   name: 'reza',
+    //   age: 20
+    // }
+    // const arr1: Array = [1, 2, 3, 4]
+
+
+    {/* <User name="ali" age={23} hasChild={false} sum={sum} /> */}
+            {/* <Post>
+            <h2>Post Tilte</h2>
+          </Post> */}
+
+
+          // Object Type
+// type User = {
+//   name: string
+//   age: number
+// }
+
+
+// Array Type
+// type Array = number[] | string[] | boolean[]
