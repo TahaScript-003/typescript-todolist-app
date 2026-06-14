@@ -3,7 +3,7 @@ import { Badge, Box, Button, Dialog, Select, TextArea, TextField, Theme } from "
 import { useState } from "react";
 import Task from "./components/Task";
 
-
+// Define a type for the task object
 export type TaskType = {
   title: string
   description: string
@@ -33,13 +33,17 @@ function App() {
     setNewTaskPriority('high'); // Reset the new task priority to 'high' after adding the task
   }
 
+  // Function to handle deleting a task from the tasks list based on its title
   const deleteTask = (title: string) => {
-    const updatedTasks: TaskType[] = taskslist.filter(task => task.title !== title);
-    setTasklists(updatedTasks);
+    const updatedTasks: TaskType[] = taskslist.filter(task => task.title !== title); // Create a new array of tasks that excludes the task with the specified title
+    setTasklists(updatedTasks); // Update the tasks list with the new array of tasks after deletion
   }
 
+  // Function to handle editing a task in the tasks list based on its title
   const editTask = (title: string) => {
+    // Create a new array of tasks by mapping through the existing tasks list and updating the task with the specified title
     const updatedTasks: TaskType[] = taskslist.map(task => {
+      // If the task title matches the specified title, return a new task object with the updated title, description, and priority
       if (task.title === title) {
         return {
           title: newTaskTitle,
@@ -47,6 +51,7 @@ function App() {
           priority: newTaskPriority
         }
       }
+      // If the task title does not match, return the task as is
       return task
     })
     setTasklists(updatedTasks);
@@ -58,6 +63,7 @@ function App() {
         <div className="container-fluid flex flex-col justify-center items-center p-5">
           <h1 className="text-5xl font-bold my-5">Just Do It</h1>
           <div className="add-task py-5">
+            {/* Add Task Dialog */}
             <Dialog.Root>
               <Dialog.Trigger>
                 <Button
@@ -78,19 +84,19 @@ function App() {
                     <p className="font-bold">Title</p>
                     <TextField.Root
                       placeholder="Title"
-                      onChange={(e) => setNewTaskTitle(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewTaskTitle(e.target.value)}
                     />
                   </label>
                   <label>
                     <p className="font-bold">Descripton</p>
                     <TextArea
                       placeholder="Decription"
-                      onChange={(e) => setNewTaskDescription(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNewTaskDescription(e.target.value)}
                     />
                   </label>
                   <label>
                     <p className="font-bold">Priority</p>
-                    <Select.Root size="2" defaultValue="high" onValueChange={(e) => setNewTaskPriority(e)}>
+                    <Select.Root size="2" defaultValue="high" onValueChange={(e: string) => setNewTaskPriority(e)}>
                       <Select.Trigger />
                       <Select.Content>
                         <Select.Item value="high">
@@ -124,6 +130,7 @@ function App() {
             </Dialog.Root>
           </div>
 
+          {/* Task List */}
           <div className="task-list">
             {
               taskslist?.map(task => (

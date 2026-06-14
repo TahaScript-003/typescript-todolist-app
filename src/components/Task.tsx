@@ -3,6 +3,7 @@ import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons'
 import { TaskType } from '../App'
 import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
+// Define a type for the props that the Task component will receive
 type TaskProps = {
     task: TaskType
     onDelete: () => void
@@ -41,6 +42,7 @@ const Task = ({
                         </Badge>
                     </div>
                     <div className="actions flex gap-2">
+                        {/* Edit Task */}
                         <div className="edit-task">
                             <Dialog.Root>
                                 <Dialog.Trigger>
@@ -109,6 +111,7 @@ const Task = ({
 
                         </div>
 
+                        {/* Delete Task */}
                         <div className="delete-task">
                             <AlertDialog.Root>
                                 <AlertDialog.Trigger>
